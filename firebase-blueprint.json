@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "report": {
+      "title": "ActivityReport",
+      "description": "Student activity report document compiled and submitted by pupils.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the report"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Full name of the student"
+        },
+        "studentClass": {
+          "type": "string",
+          "description": "Class or school grade of the student"
+        },
+        "destination": {
+          "type": "string",
+          "description": "The destination route taken"
+        },
+        "answers": {
+          "type": "array",
+          "description": "The array of question IDs and student responses"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of submission date"
+        },
+        "reportNumber": {
+          "type": "string",
+          "description": "Official report reference code"
+        },
+        "uploadedPhotos": {
+          "type": "array",
+          "description": "List of compressed photos in base64 URL format"
+        },
+        "videoLink": {
+          "type": "string",
+          "description": "URL to the google drive or YouTube video submission"
+        }
+      },
+      "required": [
+        "id",
+        "studentName",
+        "studentClass",
+        "destination",
+        "answers",
+        "createdAt",
+        "reportNumber"
+      ]
+    }
+  },
+  "firestore": {
+    "reports/{reportId}": {
+      "schema": "report",
+      "description": "Collection of all submitted student activity reports"
+    }
+  }
+}

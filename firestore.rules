@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper validation rules
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidReport(data) {
+      return data.keys().hasAll(['id', 'studentName', 'studentClass', 'destination', 'answers', 'createdAt', 'reportNumber'])
+        && data.id is string
+        && data.studentName is string && data.studentName.size() <= 150
+        && data.studentClass is string && data.studentClass.size() <= 50
+        && data.destination is string
+        && data.answers is list
+        && data.createdAt is string
+        && data.reportNumber is string;
+    }
+
+    // Reports endpoint configuration
+    match /reports/{reportId} {
+      allow get: if true;
+      // Allow list queries to support the Teacher Panel rekap
+      allow list: if true;
+      // Create is open to any student submitting their own work
+      allow create: if isValidId(reportId) && isValidReport(request.resource.data);
+      // Update is open to allow editing or finishing draft synced online
+      allow update: if isValidId(reportId) && isValidReport(request.resource.data);
+      // Delete is forbidden from public client to prevent malicious student wipeouts
+      allow delete: if false;
+    }
+  }
+}

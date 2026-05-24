@@ -1,0 +1,6 @@
+{
+  "name": "Laporan Kegiatan Field School",
+  "description": "Sistem laporan mandiri UPT SMPN 2 Gandusari Kelas 8 untuk kegiatan Yogyakarta (PIAT UGM), Kampung Coklat Blitar, Rute Mandiri (Vlog UMKM), serta Evaluasi Kokurikuler Tema 3: Teknologi Tepat Guna.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
